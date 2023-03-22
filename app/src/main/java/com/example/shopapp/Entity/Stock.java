@@ -3,6 +3,7 @@ package com.example.shopapp.Entity;
 import androidx.annotation.Nullable;
 
 public class Stock {
+    private String stockId;
     private String title;
     private String manufacturer;
     private double price;
@@ -10,6 +11,7 @@ public class Stock {
     private String imageUrl;
 
     public Stock() {
+        this.stockId="";
         this.title="";
         this.manufacturer="";
         this.price=0;
@@ -17,12 +19,21 @@ public class Stock {
         this.imageUrl="";
     }
 
-    public Stock(String title, String manufacturer, double price, String category, String imageUrl) {
+    public Stock(String stockId, String title, String manufacturer, double price, String category, String imageUrl) {
+        this.stockId=stockId;
         this.title = title;
         this.manufacturer = manufacturer;
         this.price = price;
         this.category = category;
         this.imageUrl = imageUrl;
+    }
+
+    public String getStockId() {
+        return stockId;
+    }
+
+    public void setStockId(String stockId) {
+        this.stockId = stockId;
     }
 
     public String getTitle() {
