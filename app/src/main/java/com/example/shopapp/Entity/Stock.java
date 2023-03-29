@@ -6,26 +6,37 @@ public class Stock {
     private String stockId;
     private String title;
     private String manufacturer;
-    private double price;
+    private String price;
     private String category;
     private String imageUrl;
+    private String quantity;
 
     public Stock() {
         this.stockId="";
         this.title="";
         this.manufacturer="";
-        this.price=0;
+        this.price="";
         this.category="";
         this.imageUrl="";
+        this.quantity="";
     }
 
-    public Stock(String stockId, String title, String manufacturer, double price, String category, String imageUrl) {
+    public Stock(String stockId, String title, String manufacturer, String price, String category, String imageUrl, String quantity) {
         this.stockId=stockId;
         this.title = title;
         this.manufacturer = manufacturer;
         this.price = price;
         this.category = category;
         this.imageUrl = imageUrl;
+        this.quantity=quantity;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public String getStockId() {
@@ -52,11 +63,11 @@ public class Stock {
         this.manufacturer = manufacturer;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
