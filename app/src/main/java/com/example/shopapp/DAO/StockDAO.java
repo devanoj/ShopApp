@@ -1,7 +1,10 @@
 package com.example.shopapp.DAO;
 
 import com.example.shopapp.Entity.Stock;
-import com.example.shopapp.Interface.StockObserver;
+
+
+import com.example.shopapp.Main.AddStock.AddStock;
+import com.example.shopapp.Main.AddStock.StockObserver;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,7 +21,7 @@ public class StockDAO {
         observers = new ArrayList<>();
     }
 
-    public void addObserver(StockObserver observer) {
+    public void addObserver(AddStock observer) {
         observers.add(observer);
     }
 

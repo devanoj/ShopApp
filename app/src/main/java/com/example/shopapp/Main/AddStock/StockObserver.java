@@ -1,4 +1,4 @@
-package com.example.shopapp.Interface;
+package com.example.shopapp.Main.AddStock;
 
 import com.example.shopapp.Entity.Stock;
 

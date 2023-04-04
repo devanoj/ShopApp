@@ -1,4 +1,4 @@
-package com.example.shopapp.Main;
+package com.example.shopapp.Main.AddStock;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -13,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopapp.DAO.StockDAO;
 import com.example.shopapp.Entity.Stock;
-import com.example.shopapp.Interface.StockObserver;
+
 import com.example.shopapp.R;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
