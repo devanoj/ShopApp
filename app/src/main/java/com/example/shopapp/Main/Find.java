@@ -96,11 +96,11 @@ public class Find extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Stock, StockViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull StockViewHolder holder, int position, @NonNull Stock model) {
-                holder.cat.setText(model.getTitle());
+                holder.title.setText(model.getTitle());
                 holder.dead.setText(model.getTitle());
                 holder.desc.setText(model.getManufacturer());
                 holder.stat.setText(model.getPrice());
-                holder.fromOrg.setText(model.getQuantity());
+                holder.quantity.setText(model.getQuantity());
                 holder.id.setText(model.getStockId());
                 //holder.idfromUser.setText(model.getUsid());
 

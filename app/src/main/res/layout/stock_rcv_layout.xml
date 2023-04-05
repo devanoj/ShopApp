@@ -223,7 +223,7 @@
                 android:id="@+id/selectA"
                 android:layout_width="120dp"
                 android:layout_height="35dp"
-                android:text="Select Animal"
+                android:text="Select Product"
                 android:textSize="10dp" />
 
 
