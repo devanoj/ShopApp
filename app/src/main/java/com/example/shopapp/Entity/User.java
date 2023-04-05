@@ -31,11 +31,11 @@ public class User {
         this.seller=seller;
     }
 
-    public Boolean getOrganisation() {
+    public Boolean getSeller() {
         return seller;
     }
 
-    public void setOrganisation(Boolean seller) {
+    public void setSeller(Boolean seller) {
         this.seller = seller;
     }
 

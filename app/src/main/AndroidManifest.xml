@@ -12,7 +12,7 @@
         android:theme="@style/Theme.ShopApp">
 
         <activity
-            android:name=".Main.LoginStrategy.LogIn"
+            android:name=".Main.Find"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,17 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+        </activity>
+
+        <activity
+            android:name=".Main.LoginStrategy.LogIn"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
         </activity>
 
         <activity
