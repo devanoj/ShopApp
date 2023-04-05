@@ -154,12 +154,36 @@ public class Find extends AppCompatActivity {
 
 
     private void searching(String editable) {
-        Query query = dref.orderByChild("name")
+        Query query = dref.orderByChild("category")
                 .startAt(editable).endAt(editable+"\uf8ff");
 
-        Query query1 = dref.orderByChild("from")
+        Query query1 = dref.orderByChild("title")
                 .startAt(editable).endAt(editable+"\uf8ff");
 
+        Query query2 = dref.orderByChild("manufacturer")
+                .startAt(editable).endAt(editable+"\uf8ff");
+
+        query2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChildren()) {
+                    arrayList.clear();
+                    for(DataSnapshot sd: snapshot.getChildren()) {
+                        final Stock tlist = sd.getValue(Stock.class);
+                        arrayList.add(tlist);
+                    }
+
+                    newAdapter newAdapter = new newAdapter(getApplicationContext(), arrayList);
+                    recyclerView.setAdapter(newAdapter);
+                    newAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         query1.addValueEventListener(new ValueEventListener() {
             @Override
