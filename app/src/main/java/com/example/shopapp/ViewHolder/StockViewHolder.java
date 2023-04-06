@@ -64,9 +64,21 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
                     } else {
                         Log.w("GET_USER", cUser + " FALSE");
                         String itemId = title.getText().toString();
-                        String quantityNum = quantity.getText().toString();
-                        shoppingCart.put(itemId, quantityNum);
-                        Log.w("GET_USER", itemId + quantityNum);
+                        //String quantityNum = quantity.getText().toString();
+                        //shoppingCart.put(itemId, quantityNum);
+                        //Log.w("GET_USER", itemId + quantityNum);
+
+                        Intent intent = new Intent(itemView.getContext(), SubmissionPage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Item", itemId);
+                        intent.putExtras(bundle);
+
+
+                        context.startActivity(intent);
                     }
                 }
 

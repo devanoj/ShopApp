@@ -24,6 +24,17 @@
         </activity>
 
         <activity
+            android:name=".Main.SubmissionPage"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
             android:name=".Main.LoginStrategy.LogIn"
             android:exported="true">
 
