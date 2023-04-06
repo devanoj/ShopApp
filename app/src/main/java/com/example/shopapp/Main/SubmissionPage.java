@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,11 +18,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class SubmissionPage extends AppCompatActivity {
     Button qButton, bButton, pButton;
     EditText qEditText, cEditText;
+    RatingBar ratingBar;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -38,6 +41,14 @@ public class SubmissionPage extends AppCompatActivity {
         cEditText = findViewById(R.id.Comment);
         qEditText = findViewById(R.id.Quantity1);
 
+        ratingBar = findViewById(R.id.ratingBar);
+
+        saveDataHashMap();
+        backButton();
+        postComment();
+    }
+
+    private void saveDataHashMap() {
         String myValue = null;
 
         Bundle bundle = getIntent().getExtras();
@@ -52,9 +63,6 @@ public class SubmissionPage extends AppCompatActivity {
             DataHolder.saveHashMap(getApplicationContext(), hashMap);
             printHashMap();
         });
-
-        backButton();
-        postComment();
     }
 
     private void postComment() {
@@ -63,16 +71,21 @@ public class SubmissionPage extends AppCompatActivity {
         if (bundle != null) {
             myValue = bundle.getString("Item");
         }
-
         String finalMyValue = myValue;
 
+        String[] stringRating = {null}; // Use an array to hold the mutable value
 
-        pButton.setOnClickListener(v->{
+        ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            stringRating[0] = String.valueOf(rating); // Set the value in the array
+        });
+
+        pButton.setOnClickListener(v -> {
             String comment = cEditText.getText().toString();
-            Comment c1 = new Comment(null, finalMyValue, comment, currentUser.getUid());
+            Comment c1 = new Comment(null, finalMyValue, comment, currentUser.getUid(), stringRating[0]); // Get the value from the array
             CommentDAO aDAO = new CommentDAO(c1);
         });
     }
+
 
     private void backButton() {
         bButton.setOnClickListener(v-> {
