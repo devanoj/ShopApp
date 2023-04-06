@@ -1,5 +1,6 @@
 package com.example.shopapp.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class SubmissionPage extends AppCompatActivity {
         setContentView(R.layout.submission_layout);
 
         qButton = findViewById(R.id.buttonQ);
+        bButton = findViewById(R.id.buttonB);
         qEditText = findViewById(R.id.Quantity1);
         String myValue = null;
 
@@ -38,6 +40,17 @@ public class SubmissionPage extends AppCompatActivity {
             hashMap.put(finalMyValue, "5");
             DataHolder.saveHashMap(getApplicationContext(), hashMap);
             printHashMap();
+        });
+
+        backButton();
+    }
+
+    private void backButton() {
+        bButton.setOnClickListener(v-> {
+            Intent intent = new Intent(getApplicationContext(), Find.class);
+            Bundle bundle = new Bundle();
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
     }
 
