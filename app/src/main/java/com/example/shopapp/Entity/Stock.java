@@ -10,6 +10,7 @@ public class Stock {
     private String category;
     private String imageUrl;
     private String quantity;
+    //private Comment comment;
 
     public Stock() {
         this.stockId="";
