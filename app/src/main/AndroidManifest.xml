@@ -24,7 +24,18 @@
         </activity>
 
         <activity
-            android:name=".Main.SubmissionPage"
+            android:name=".Main.AddToCart"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".Main.CheckOut"
             android:exported="true">
 
             <intent-filter>

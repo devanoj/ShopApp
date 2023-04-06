@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shopapp.Main.SubmissionPage;
+import com.example.shopapp.Main.AddToCart;
 import com.example.shopapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,7 +68,7 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
                         //shoppingCart.put(itemId, quantityNum);
                         //Log.w("GET_USER", itemId + quantityNum);
 
-                        Intent intent = new Intent(itemView.getContext(), SubmissionPage.class);
+                        Intent intent = new Intent(itemView.getContext(), AddToCart.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 

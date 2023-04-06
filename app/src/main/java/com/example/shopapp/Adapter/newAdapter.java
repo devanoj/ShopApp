@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.shopapp.Entity.Stock;
-import com.example.shopapp.Main.SubmissionPage;
+import com.example.shopapp.Main.AddToCart;
 import com.example.shopapp.R;
 
 import java.util.ArrayList;
@@ -103,7 +103,7 @@ public class newAdapter extends RecyclerView.Adapter<newAdapter.StockViewHolder>
 
             s.setOnClickListener(v -> {
                 Toast.makeText(context, "Button clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(itemView.getContext(), SubmissionPage.class);
+                Intent intent = new Intent(itemView.getContext(), AddToCart.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 Bundle bundle = new Bundle();

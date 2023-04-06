@@ -18,11 +18,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 
-public class SubmissionPage extends AppCompatActivity {
-    Button qButton, bButton, pButton;
+public class AddToCart extends AppCompatActivity {
+    Button qButton, bButton, pButton, cButton;
     EditText qEditText, cEditText;
     RatingBar ratingBar;
 
@@ -32,11 +31,12 @@ public class SubmissionPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.submission_layout);
+        setContentView(R.layout.addtocart_layout);
 
         qButton = findViewById(R.id.buttonQ);
         bButton = findViewById(R.id.buttonB);
         pButton = findViewById(R.id.postB);
+        cButton = findViewById(R.id.checkOut);
 
         cEditText = findViewById(R.id.Comment);
         qEditText = findViewById(R.id.Quantity1);
@@ -46,6 +46,16 @@ public class SubmissionPage extends AppCompatActivity {
         saveDataHashMap();
         backButton();
         postComment();
+        goToCheckout();
+    }
+
+    private void goToCheckout() {
+        cButton.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), CheckOut.class);
+            Bundle bundle = new Bundle();
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
     }
 
     private void saveDataHashMap() {
