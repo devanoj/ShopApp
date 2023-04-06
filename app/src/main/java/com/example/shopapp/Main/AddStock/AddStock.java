@@ -74,7 +74,7 @@ public class AddStock extends AppCompatActivity implements StockObserver {
                             taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
                                 String imageUrl = uri.toString();
 
-                                Stock stock = new Stock(id, Title1, Manufact1, Price1, Category1, imageUrl, Quantity1); // Data here
+                                Stock stock = new Stock(id, Title1, Manufact1, Price1, Category1, imageUrl, Quantity1,null); // Data here
 
                                 stockDAO.addStock(stock);
                                 Toast.makeText(AddStock.this, "Entered Data", Toast.LENGTH_SHORT).show();

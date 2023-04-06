@@ -10,7 +10,7 @@ public class Stock {
     private String category;
     private String imageUrl;
     private String quantity;
-    //private Comment comment;
+    private Comment comment;
 
     public Stock() {
         this.stockId="";
@@ -20,9 +20,10 @@ public class Stock {
         this.category="";
         this.imageUrl="";
         this.quantity="";
+        this.comment=comment;
     }
 
-    public Stock(String stockId, String title, String manufacturer, String price, String category, String imageUrl, String quantity) {
+    public Stock(String stockId, String title, String manufacturer, String price, String category, String imageUrl, String quantity, Comment comment) {
         this.stockId=stockId;
         this.title = title;
         this.manufacturer = manufacturer;
@@ -30,6 +31,15 @@ public class Stock {
         this.category = category;
         this.imageUrl = imageUrl;
         this.quantity=quantity;
+        this.comment=comment;
+    }
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
     public String getQuantity() {

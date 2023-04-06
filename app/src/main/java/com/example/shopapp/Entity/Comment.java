@@ -1,17 +1,39 @@
 package com.example.shopapp.Entity;
 
 public class Comment {
+    private String cID;
     private String comment;
-    private String userCommentId;
+    private String stockCommentId;
+    private String userCommentID;
 
     public Comment() {
+        this.cID="";
         this.comment = "";
-        this.userCommentId = "";
+        this.stockCommentId = "";
+        this.userCommentID=userCommentID;
     }
 
-    public Comment(String comment, String userCommentId) {
+    public Comment(String cID, String comment, String stockCommentId, String userCommentID) {
+        this.cID=cID;
         this.comment = comment;
-        this.userCommentId = userCommentId;
+        this.stockCommentId = stockCommentId;
+        this.userCommentID = userCommentID;
+    }
+
+    public String getUserCommentID() {
+        return userCommentID;
+    }
+
+    public void setUserCommentID(String userCommentID) {
+        this.userCommentID = userCommentID;
+    }
+
+    public String getcID() {
+        return cID;
+    }
+
+    public void setcID(String cID) {
+        this.cID = cID;
     }
 
     public String getComment() {
@@ -22,11 +44,11 @@ public class Comment {
         this.comment = comment;
     }
 
-    public String getUserCommentId() {
-        return userCommentId;
+    public String getStockCommentId() {
+        return stockCommentId;
     }
 
-    public void setUserCommentId(String userCommentId) {
-        this.userCommentId = userCommentId;
+    public void setStockCommentId(String userCommentId) {
+        this.stockCommentId = userCommentId;
     }
 }

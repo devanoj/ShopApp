@@ -8,16 +8,23 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shopapp.DAO.CommentDAO;
+import com.example.shopapp.Entity.Comment;
 import com.example.shopapp.R;
 import com.example.shopapp.SharedPrefHashMap.DataHolder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class SubmissionPage extends AppCompatActivity {
-    Button qButton, bButton;
-    EditText qEditText;
+    Button qButton, bButton, pButton;
+    EditText qEditText, cEditText;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +33,11 @@ public class SubmissionPage extends AppCompatActivity {
 
         qButton = findViewById(R.id.buttonQ);
         bButton = findViewById(R.id.buttonB);
+        pButton = findViewById(R.id.postB);
+
+        cEditText = findViewById(R.id.Comment);
         qEditText = findViewById(R.id.Quantity1);
+
         String myValue = null;
 
         Bundle bundle = getIntent().getExtras();
@@ -43,6 +54,24 @@ public class SubmissionPage extends AppCompatActivity {
         });
 
         backButton();
+        postComment();
+    }
+
+    private void postComment() {
+        String myValue = null;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            myValue = bundle.getString("Item");
+        }
+
+        String finalMyValue = myValue;
+
+
+        pButton.setOnClickListener(v->{
+            String comment = cEditText.getText().toString();
+            Comment c1 = new Comment(null, finalMyValue, comment, currentUser.getUid());
+            CommentDAO aDAO = new CommentDAO(c1);
+        });
     }
 
     private void backButton() {
@@ -64,6 +93,4 @@ public class SubmissionPage extends AppCompatActivity {
             }
         }
     }
-
-
 }
