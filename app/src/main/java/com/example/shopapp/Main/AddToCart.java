@@ -2,11 +2,14 @@ package com.example.shopapp.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopapp.DAO.CommentDAO;
@@ -15,6 +18,11 @@ import com.example.shopapp.R;
 import com.example.shopapp.SharedPrefHashMap.DataHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +35,8 @@ public class AddToCart extends AppCompatActivity {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
+
+    DatabaseReference dr = FirebaseDatabase.getInstance().getReference("Stock");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +79,36 @@ public class AddToCart extends AppCompatActivity {
         String finalMyValue = myValue;
         qButton.setOnClickListener(v -> {
             HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put(finalMyValue, "5");
-            DataHolder.saveHashMap(getApplicationContext(), hashMap);
-            printHashMap();
+            hashMap.put(finalMyValue, qEditText.getText().toString());
+
+
+
+            dr.child(finalMyValue).child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String text = qEditText.getText().toString();
+                    Toast.makeText(AddToCart.this, "Text: " + text, Toast.LENGTH_SHORT).show();
+                    if (!TextUtils.isEmpty(text)) { // Add null check
+                        int number = Integer.parseInt(text);
+                        String q = snapshot.getValue(String.class);
+                        Toast.makeText(AddToCart.this, "Text 1: " + q, Toast.LENGTH_SHORT).show(); //null
+                        if (q != null) { // Add null check
+                            int intValue = Integer.parseInt(q);
+                            if (number < intValue) {
+                                DataHolder.saveHashMap(getApplicationContext(), hashMap);
+                                printHashMap();
+                            } else {
+                                return; // Just Crashes here move to something else
+                            }
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(AddToCart.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         });
     }
 

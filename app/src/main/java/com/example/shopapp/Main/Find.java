@@ -1,5 +1,6 @@
 package com.example.shopapp.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopapp.Adapter.newAdapter;
 import com.example.shopapp.Entity.Stock;
+import com.example.shopapp.Main.AddStock.AddStock;
 import com.example.shopapp.R;
 import com.example.shopapp.ViewHolder.StockViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -32,6 +35,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class Find extends AppCompatActivity {
+    ImageView Profile1, CreateStock, Find1, HomeMain1;
+
     RecyclerView recyclerView;
     DatabaseReference dref;
     FirebaseRecyclerOptions<Stock> options;
@@ -62,7 +67,7 @@ public class Find extends AppCompatActivity {
 
         editText = findViewById(R.id.inputVariable);
 
-        //sideNavMenu();
+        sideNavMenu();
 
 
 
@@ -151,6 +156,32 @@ public class Find extends AppCompatActivity {
 
     }
 
+    private void sideNavMenu() {
+        Profile1 = findViewById(R.id.Profile);
+        CreateStock = findViewById(R.id.CreateStock);
+        Find1 = findViewById(R.id.Find);
+        HomeMain1 = findViewById(R.id.HomeMain);
+
+
+        Profile1.setOnClickListener(v -> {
+            Bundle bundle1 = new Bundle();
+            Intent intent1 = new Intent(Find.this, Profile.class);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
+        });
+        HomeMain1.setOnClickListener(v -> {
+            Bundle bundle1 = new Bundle();
+            Intent intent1 = new Intent(Find.this, Home.class);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
+        });
+        CreateStock.setOnClickListener(v -> {
+            Bundle bundle1 = new Bundle();
+            Intent intent1 = new Intent(Find.this, AddStock.class);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
+        });
+    }
 
 
     private void searching(String editable) {
@@ -252,43 +283,6 @@ public class Find extends AppCompatActivity {
             adapter.startListening();
     }
 
-    /**
-     private void sideNavMenu() {
-     // ImageView
-     animalExplore = findViewById(R.id.ExploreAnimal);
-     Profile1 = findViewById(R.id.Profile);
-     Filter1 = findViewById(R.id.Filter);
-     Find1 = findViewById(R.id.Find);
-     HomeMain1 = findViewById(R.id.HomeMain);
-
-     makeCreateVisible();
-
-     Profile1.setOnClickListener(v -> {
-     Bundle bundle1 = new Bundle();
-     Intent intent1 = new Intent(FindActivity.this, Profile.class);
-     intent1.putExtras(bundle1);
-     startActivity(intent1);
-     });
-     animalExplore.setOnClickListener(v -> {
-     Bundle bundle1 = new Bundle();
-     Intent intent1 = new Intent(FindActivity.this, Create.class);
-     intent1.putExtras(bundle1);
-     startActivity(intent1);
-     });
-     Filter1.setOnClickListener(v -> {
-     Bundle bundle1 = new Bundle();
-     Intent intent1 = new Intent(FindActivity.this, Filtering.class);
-     intent1.putExtras(bundle1);
-     startActivity(intent1);
-     });
-     HomeMain1.setOnClickListener(v -> {
-     Bundle bundle1 = new Bundle();
-     Intent intent1 = new Intent(FindActivity.this, Home.class);
-     intent1.putExtras(bundle1);
-     startActivity(intent1);
-     });
-     }
-     */
 
 
 }

@@ -63,7 +63,7 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
                         Log.w("GET_USER", cUser + "TRUE");
                     } else {
                         Log.w("GET_USER", cUser + " FALSE");
-                        String itemId = title.getText().toString();
+                        String itemId = id.getText().toString();
                         //String quantityNum = quantity.getText().toString();
                         //shoppingCart.put(itemId, quantityNum);
                         //Log.w("GET_USER", itemId + quantityNum);

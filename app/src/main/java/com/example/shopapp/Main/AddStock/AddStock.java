@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.shopapp.DAO.StockDAO;
 import com.example.shopapp.Entity.Stock;
 
+import com.example.shopapp.Main.Find;
+import com.example.shopapp.Main.Home;
+import com.example.shopapp.Main.Profile;
 import com.example.shopapp.R;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -29,6 +33,8 @@ public class AddStock extends AppCompatActivity implements StockObserver {
     public StorageTask mUploadTask;
     public StorageReference mStorageRef;
     private StockDAO stockDAO;
+
+    public ImageView Profile1, CreateStock, Find1, HomeMain1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,35 @@ public class AddStock extends AppCompatActivity implements StockObserver {
         stockDAO = new StockDAO();
         stockDAO.addObserver(this);
 
+        sideNavMenu();
     }
 
+    private void sideNavMenu() {
+        Profile1 = findViewById(R.id.Profile);
+        CreateStock = findViewById(R.id.CreateStock);
+        Find1 = findViewById(R.id.Find);
+        HomeMain1 = findViewById(R.id.HomeMain);
+
+
+        Profile1.setOnClickListener(v -> {
+            Bundle bundle1 = new Bundle();
+            Intent intent1 = new Intent(AddStock.this, Profile.class);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
+        });
+        HomeMain1.setOnClickListener(v -> {
+            Bundle bundle1 = new Bundle();
+            Intent intent1 = new Intent(AddStock.this, Home.class);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
+        });
+        Find1.setOnClickListener(v -> {
+            Bundle bundle1 = new Bundle();
+            Intent intent1 = new Intent(AddStock.this, Find.class);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
+        });
+    }
 
     private void inputStock() {
             Title1 = Title.getText().toString();

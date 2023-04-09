@@ -111,6 +111,45 @@
         android:layout_marginTop="14dp"
         app:layout_constraintTop_toBottomOf="@+id/Quantity"/>
 
+    <ImageView
+        android:id="@+id/CreateStock"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="580dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/HomeMain"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="516dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/Find"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="706dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/finding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/Profile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="644dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

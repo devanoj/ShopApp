@@ -12,7 +12,7 @@
         android:theme="@style/Theme.ShopApp">
 
         <activity
-            android:name=".Main.Find"
+            android:name=".Main.LoginStrategy.LogIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +35,28 @@
         </activity>
 
         <activity
+            android:name=".Main.Home"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".Main.Profile"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
             android:name=".Main.CheckOut"
             android:exported="true">
 
@@ -46,7 +68,7 @@
         </activity>
 
         <activity
-            android:name=".Main.LoginStrategy.LogIn"
+            android:name=".Main.Find"
             android:exported="true">
 
             <intent-filter>
