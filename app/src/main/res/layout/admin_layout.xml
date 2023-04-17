@@ -6,13 +6,45 @@
     android:layout_height="match_parent"
     android:background="#9a183d">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="194dp"
+        android:layout_marginBottom="481dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
     <Button
         android:id="@+id/addStock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
         android:layout_marginTop="674dp"
-        android:text="Add Stock"
+        android:text="Update Stock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/back1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="574dp"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/DeleteStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="254dp"
+        android:layout_marginTop="674dp"
+        android:text="Delete Stock"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,46 +142,5 @@
         android:layout_marginStart="57dp"
         android:layout_marginTop="14dp"
         app:layout_constraintTop_toBottomOf="@+id/Quantity"/>
-
-    <ImageView
-        android:id="@+id/CreateStock"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="580dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/HomeMain"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="516dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <ImageView
-        android:id="@+id/Find"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="706dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/finding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/Profile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="644dp"
-        android:layout_marginEnd="12dp"
-        android:src="@drawable/profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

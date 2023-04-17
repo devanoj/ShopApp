@@ -37,8 +37,15 @@ public class AddToCart extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
 
-    DatabaseReference dr = FirebaseDatabase.getInstance().getReference("Stock");
-
+    //DatabaseReference dr = FirebaseDatabase.getInstance().getReference("Stock");
+    DatabaseReference dr;
+    private static FirebaseDatabase firebaseDatabase;
+    public static FirebaseDatabase getFirebaseDatabase() {
+        if (firebaseDatabase == null) {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+        }
+        return firebaseDatabase;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,7 @@ public class AddToCart extends AppCompatActivity {
         qEditText = findViewById(R.id.Quantity1);
 
         ratingBar = findViewById(R.id.ratingBar);
+        dr = getFirebaseDatabase().getReference("Stock");
 
         saveDataHashMap();
         backButton();

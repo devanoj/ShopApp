@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopapp.Main.AddToCart;
+import com.example.shopapp.Main.AdminStock.AdminControl;
 import com.example.shopapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,7 +51,7 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         assert currentUser != null;
         String cUser = currentUser.getUid();
-        DatabaseReference idorg = FirebaseDatabase.getInstance().getReference().child("User").child(cUser).child("organisation");
+        DatabaseReference idorg = FirebaseDatabase.getInstance().getReference().child("User").child(cUser).child("seller");
         HashMap<String, String> shoppingCart = new HashMap<>();
 
         select.setOnClickListener(v -> {
@@ -61,6 +62,13 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
                     boolean value = Boolean.TRUE.equals(dataSnapshot.getValue(Boolean.class));
                     if(value) {
                         Log.w("GET_USER", cUser + "TRUE");
+                        String itemId = id.getText().toString();
+                        Intent intent = new Intent(itemView.getContext(), AdminControl.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Item", itemId);
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
                     } else {
                         Log.w("GET_USER", cUser + " FALSE");
                         String itemId = id.getText().toString();

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shopapp.R;
 import com.example.shopapp.SharedPrefHashMap.DataHolder;
+import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,8 +25,18 @@ import java.util.Map;
 
 public class CheckOut extends AppCompatActivity {
     TextView Price1, totalPrice;
-    Button Back, Buy;
-    DatabaseReference dr = FirebaseDatabase.getInstance().getReference("Stock");
+    Button Back, Buy, deleteCart, discount;
+    EditText CodeDisocunt;
+    //DatabaseReference dr = FirebaseDatabase.getInstance().getReference("Stock");
+    DatabaseReference dr;
+    private static FirebaseDatabase firebaseDatabase;
+    public static FirebaseDatabase getFirebaseDatabase() {
+        if (firebaseDatabase == null) {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+        }
+        return firebaseDatabase;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +45,81 @@ public class CheckOut extends AppCompatActivity {
         Price1 = findViewById(R.id.Price);
         Back = findViewById(R.id.Back);
         Buy = findViewById(R.id.Buy);
+        deleteCart = findViewById(R.id.DeleteCart);
         totalPrice = findViewById(R.id.totalCart);
+        CodeDisocunt = findViewById(R.id.discontCode);
+        discount = findViewById(R.id.Discount);
+        dr = getFirebaseDatabase().getReference("Stock");
+
 
         printHashMap();
         buy();
         back();
+        deleteCart1();
+        tp();
+        discount1();
+    }
+
+    private void discount1() {
+        discount.setOnClickListener(v->{
+            String discountCode = CodeDisocunt.getText().toString().trim();
+            if (!discountCode.isEmpty() && discountCode.equals("xxx")) {
+                String finalPrice = totalPrice.getText().toString();
+                double finalPriceInt = Double.parseDouble(finalPrice);
+                double tenP = (finalPriceInt)-(finalPriceInt*0.1);
+                String tenPer = String.valueOf(tenP);
+                totalPrice.setText(tenPer);
+                Toast.makeText(this, "Given Discount", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No Discount", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void tp() {
+        HashMap<String, String> hashMap = DataHolder.getHashMap(this);
+        if (hashMap != null) {
+            for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                double intValue = Double.parseDouble(value);
+                //calculateTotal(key, intValue);
+                Total(key, intValue);
+                Log.w("TP11", key);
+                Log.w("TP11", value);
+            }
+        }
+    }
+
+    private void Total(String k, double v) {
+        dr.child(k).child("price").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String p = snapshot.getValue(String.class);
+                double pItem = Double.parseDouble(p);
+                double qtItem = pItem*v;
+                double finalqtItem =+ qtItem;
+                String myValue = String.valueOf(finalqtItem);
+                totalPrice.setText(myValue);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteCart1() {
+        deleteCart.setOnClickListener(v->{
+            deleteHashMapData();
+
+            Bundle bundle1 = new Bundle();
+            Intent intent1 = new Intent(CheckOut.this, Find.class);
+            intent1.putExtras(bundle1);
+            startActivity(intent1);
+        });
     }
 
     private void back() {
@@ -52,14 +134,20 @@ public class CheckOut extends AppCompatActivity {
     private void buy() {
         Buy.setOnClickListener(v->{
             adjustStockLevels();
-            //calculateTotal();
-
-
+            deleteHashMapData();
+            
             Bundle bundle1 = new Bundle();
             Intent intent1 = new Intent(CheckOut.this, Find.class);
             intent1.putExtras(bundle1);
             startActivity(intent1);
         });
+    }
+
+    private void deleteHashMapData() {
+        HashMap<String, String> emptyHashMap = new HashMap<>();
+
+        // Save the empty HashMap to SharedPreferences
+        DataHolder.saveHashMap(this, emptyHashMap);
     }
 
 
@@ -71,19 +159,16 @@ public class CheckOut extends AppCompatActivity {
                 String value = entry.getValue();
                 int intValue = Integer.parseInt(value);
 
-                // Get Quantity = value
-                // Get Price of Each Item
-                // * it and print total
-                // Give 5 % discount
-                calculateTotal(key, intValue);
-
 
                 dr.child(key).child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String q = snapshot.getValue(String.class);
-                        int qLevel = Integer.parseInt(q);
-                        int finalValue = qLevel - intValue;
+                        //int qLevel = Integer.parseInt(q);
+                        //int finalValue = qLevel - intValue;
+
+                        double qLevel = Double.parseDouble(q);
+                        double finalValue = qLevel - intValue;
                         String sfinalStockValue = String.valueOf(finalValue);
 
                         dr.child(key).child("quantity").setValue(sfinalStockValue)
@@ -103,27 +188,6 @@ public class CheckOut extends AppCompatActivity {
                 });
             }
         }
-    }
-
-    private void calculateTotal(String key, int intValue) {
-        dr.child(key).child("price").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String p = snapshot.getValue(String.class);
-                int pItem = Integer.parseInt(p);
-                int qtItem = pItem*intValue;
-                int finalqtItem =+ qtItem;
-                String myValue = String.valueOf(finalqtItem);
-                totalPrice.setText(myValue);
-                Log.w("TEST_FinalQT_Item", myValue);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
     }
 
     private void printHashMap() {

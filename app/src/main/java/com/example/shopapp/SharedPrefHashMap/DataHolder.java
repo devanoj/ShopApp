@@ -27,4 +27,11 @@ public class DataHolder {
         HashMap<String, String> hashMap = gson.fromJson(hashMapJson, type);
         return hashMap;
     }
+
+    public static void deleteHashMap(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove("hashMap");
+        editor.apply();
+    }
 }
