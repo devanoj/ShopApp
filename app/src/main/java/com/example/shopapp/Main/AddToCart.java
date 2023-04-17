@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -76,13 +77,17 @@ public class AddToCart extends AppCompatActivity {
             myValue = bundle.getString("Item");
         }
 
-        String finalMyValue = myValue;
+        final String finalMyValue = myValue; // Declare as final
+
         qButton.setOnClickListener(v -> {
-            HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put(finalMyValue, qEditText.getText().toString());
+            HashMap<String, String> hashMap = DataHolder.getHashMap(getApplicationContext()); // Retrieve existing data from SharedPreferences
+            if (hashMap == null) {
+                hashMap = new HashMap<>();
+            }
 
+            hashMap.put(finalMyValue, qEditText.getText().toString()); // Update the HashMap with new data
 
-
+            HashMap<String, String> finalHashMap = hashMap;
             dr.child(finalMyValue).child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,7 +100,7 @@ public class AddToCart extends AppCompatActivity {
                         if (q != null) { // Add null check
                             int intValue = Integer.parseInt(q);
                             if (number < intValue) {
-                                DataHolder.saveHashMap(getApplicationContext(), hashMap);
+                                DataHolder.saveHashMap(getApplicationContext(), finalHashMap); // Save the updated HashMap to SharedPreferences
                                 printHashMap();
                             } else {
                                 return; // Just Crashes here move to something else

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckOut extends AppCompatActivity {
-    TextView Price1;
+    TextView Price1, totalPrice;
     Button Back, Buy;
     DatabaseReference dr = FirebaseDatabase.getInstance().getReference("Stock");
     @Override
@@ -34,6 +33,7 @@ public class CheckOut extends AppCompatActivity {
         Price1 = findViewById(R.id.Price);
         Back = findViewById(R.id.Back);
         Buy = findViewById(R.id.Buy);
+        totalPrice = findViewById(R.id.totalCart);
 
         printHashMap();
         buy();
@@ -52,6 +52,7 @@ public class CheckOut extends AppCompatActivity {
     private void buy() {
         Buy.setOnClickListener(v->{
             adjustStockLevels();
+            //calculateTotal();
 
 
             Bundle bundle1 = new Bundle();
@@ -61,6 +62,7 @@ public class CheckOut extends AppCompatActivity {
         });
     }
 
+
     private void adjustStockLevels() {
         HashMap<String, String> hashMap = DataHolder.getHashMap(this);
         if (hashMap != null) {
@@ -68,6 +70,13 @@ public class CheckOut extends AppCompatActivity {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 int intValue = Integer.parseInt(value);
+
+                // Get Quantity = value
+                // Get Price of Each Item
+                // * it and print total
+                // Give 5 % discount
+                calculateTotal(key, intValue);
+
 
                 dr.child(key).child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -94,6 +103,27 @@ public class CheckOut extends AppCompatActivity {
                 });
             }
         }
+    }
+
+    private void calculateTotal(String key, int intValue) {
+        dr.child(key).child("price").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String p = snapshot.getValue(String.class);
+                int pItem = Integer.parseInt(p);
+                int qtItem = pItem*intValue;
+                int finalqtItem =+ qtItem;
+                String myValue = String.valueOf(finalqtItem);
+                totalPrice.setText(myValue);
+                Log.w("TEST_FinalQT_Item", myValue);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void printHashMap() {
